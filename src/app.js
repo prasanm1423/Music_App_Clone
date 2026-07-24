@@ -8,7 +8,7 @@ const cookieParser = require("cookie-parser");
 //middelWares
 app.use(express.json());
 app.use(cookieParser());
-app.use("/api/routes", authRoutes);
+app.use("/api/auth", authRoutes);
 app.use("/api/music", musicRoutes);
 
 //exporting

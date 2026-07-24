@@ -9,7 +9,7 @@ async function uploadFile(file) {
   const result = await ImageKitClient.files.upload({
     file,
     fileName: "music " + Date.now(),
-    folder: "Backend Project/music",
+    folder: "/music",
   });
   return result;
 }

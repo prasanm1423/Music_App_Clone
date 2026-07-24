@@ -15,11 +15,11 @@ async function registerUser(req, res) {
       message: "user already Exist",
     });
   }
-  const hash = await bcrypt.hash(password, 10);
+  const hashPassword = await bcrypt.hash(password, 10);
   const user = await userModel.create({
     username,
     email,
-    password: hash,
+    password: hashPassword,
     role,
   });
   const token = jwt.sign(
@@ -42,9 +42,9 @@ async function registerUser(req, res) {
 }
 
 //loginUser Function(step 3)
-async function loginUser(params) {
+async function loginUser(req, res) {
   const { username, email, password } = req.body;
-  const user = userModel.findOne({
+  const user = await userModel.findOne({
     $or: [{ username }, { email }],
   });
   if (!user) {
@@ -65,7 +65,7 @@ async function loginUser(params) {
     },
     process.env.JWT_SECRET,
   );
-  res.cookie("Token", token);
+  res.cookie("token", token);
   res.status(200).json({
     message: "User logged Successfully",
     user: {
