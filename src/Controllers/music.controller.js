@@ -33,7 +33,7 @@ async function createMusic(req, res) {
     const music = await musicModel.create({
       uri: result.url,
       title,
-      artist: decode.id,
+      artist: req.user.id,
     });
     res.status(201).json({
       message: "Music created and added Successfully",
